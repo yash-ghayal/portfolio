@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yash Ghayal — Editor / VFX / Filmmaker</title>
+<meta name="description" content="Yash Ghayal — Editor, VFX Artist & Filmmaker Portfolio">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ========================================================
+     EDIT GUIDE — search for "REPLACE" comments to find every
+     spot you need to swap in your own name / bio / projects.
+     ======================================================== */
+
+  :root{
+    --bg: #05050a;
+    --bg-soft: #0b0b16;
+    --purple: #7c3aed;
+    --blue: #3b82f6;
+    --glow: #a78bfa;
+    --glass: rgba(255,255,255,0.055);
+    --glass-border: rgba(255,255,255,0.12);
+    --text: #f5f5f7;
+    --muted: #9a9aab;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+    cursor:default;
+  }
+
+  ::selection{ background: var(--purple); color:#fff; }
+
+  /* ---------- ambient gradient wash behind everything ---------- */
+  .bg-wash{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(124,58,237,0.18), transparent 45%),
+      radial-gradient(circle at 80% 70%, rgba(59,130,246,0.16), transparent 50%),
+      var(--bg);
+  }
+
+  /* ---------- nav ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; justify-content:space-between; align-items:center;
+    padding: 28px 6vw;
+    backdrop-filter: blur(14px);
+    background: linear-gradient(to bottom, rgba(5,5,10,0.55), transparent);
+  }
+  .nav-logo{
+    font-family:'Anton', sans-serif;
+    letter-spacing:0.08em;
+    font-size:1.1rem;
+  }
+  .nav-links{
+    display:flex; gap:2.4rem; list-style:none;
+    font-size:0.82rem; letter-spacing:0.12em; text-transform:uppercase;
+  }
+  .nav-links a{
+    color: var(--muted); text-decoration:none; transition: color .3s ease;
+    position:relative;
+  }
+  .nav-links a:hover{ color: var(--text); }
+  .nav-links a::after{
+    content:''; position:absolute; bottom:-6px; left:0; width:0; height:1px;
+    background: linear-gradient(90deg, var(--purple), var(--blue));
+    transition: width .35s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+
+  /* ================= HERO ================= */
+  .hero{
+    position:relative; height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center;
+    perspective: 1400px; overflow:hidden;
+  }
+
+  #goo-canvas{
+    position:absolute; inset:0; width:100%; height:100%;
+    filter: url(#goo) blur(0px);
+    z-index:1; pointer-events:none;
+  }
+
+  .droplet{
+    position:absolute; border-radius:50%;
+    background: linear-gradient(135deg, rgba(124,58,237,0.55), rgba(59,130,246,0.35));
+    box-shadow: inset 0 0 40px rgba(255,255,255,0.15);
+    mix-blend-mode: screen;
+  }
+
+  .hero-content{ position:relative; z-index:5; }
+
+  .eyebrow{
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic; font-weight:500;
+    letter-spacing:0.15em; text-transform:uppercase;
+    color: var(--glow); font-size:1rem; margin-bottom:1.4rem;
+    opacity:0; animation: fadeUp 1s ease forwards .2s;
+  }
+
+  .hero h1{
+    font-family:'Anton', sans-serif;
+    font-size: clamp(3.2rem, 11vw, 9rem);
+    line-height:0.92;
+    letter-spacing: 0.01em;
+    background: linear-gradient(120deg, #ffffff 20%, var(--glow) 55%, var(--blue) 85%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    text-transform:uppercase;
+  }
+
+  .hero h1 span{
+    display:inline-block; opacity:0; transform: translateY(40px) rotateX(40deg);
+    animation: letterUp .9s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+
+  .hero-tagline{
+    font-family:'Cormorant Garamond', serif; font-style:italic;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    color: var(--muted); margin-top:1.6rem;
+    opacity:0; animation: fadeUp 1s ease forwards 1.1s;
+  }
+
+  .scroll-cue{
+    position:absolute; bottom:42px; left:50%; transform:translateX(-50%);
+    font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase;
+    color: var(--muted); z-index:5;
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    opacity:0; animation: fadeUp 1s ease forwards 1.6s;
+  }
+  .scroll-line{ width:1px; height:44px; background: linear-gradient(var(--glow), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+
+  @keyframes fadeUp{ from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);} }
+  @keyframes letterUp{ to{ opacity:1; transform:translateY(0) rotateX(0);} }
+  @keyframes scrollPulse{ 0%,100%{opacity:.3;} 50%{opacity:1;} }
+
+  /* ================= SECTION SHELL ================= */
+  section{ position:relative; z-index:2; padding: 10vh 6vw; }
+  .section-head{ margin-bottom: 4rem; }
+  .section-eyebrow{
+    font-family:'Cormorant Garamond', serif; font-style:italic;
+    color: var(--glow); letter-spacing:0.12em; text-transform:uppercase;
+    font-size:0.95rem; margin-bottom:0.6rem;
+  }
+  .section-title{
+    font-family:'Anton', sans-serif; text-transform:uppercase;
+    font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing:0.01em;
+  }
+
+  /* ================= ABOUT ================= */
+  .about{ display:grid; grid-template-columns: 0.9fr 1.1fr; gap:4rem; align-items:center; }
+  @media (max-width:900px){ .about{ grid-template-columns:1fr; } }
+
+  .glass-panel{
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-radius: 24px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+
+  .about-portrait{
+    aspect-ratio: 4/5; border-radius:24px;
+    background:
+      linear-gradient(160deg, rgba(124,58,237,0.35), rgba(59,130,246,0.25)),
+      linear-gradient(#1a1a24,#1a1a24);
+    display:flex; align-items:center; justify-content:center;
+    color: var(--muted); font-family:'Cormorant Garamond', serif; font-style:italic;
+    border:1px solid var(--glass-border);
+  }
+  /* REPLACE: swap .about-portrait background with your photo:
+     background-image:url('your-photo.jpg'); background-size:cover; background-position:center; */
+
+  .about-copy p{
+    color: var(--muted); font-size:1.05rem; line-height:1.8; margin-bottom:1.4rem;
+    font-weight:300;
+  }
+  .about-copy strong{ color: var(--text); font-weight:500; }
+
+  .stat-row{ display:flex; gap:2.4rem; margin-top:2.2rem; flex-wrap:wrap; }
+  .stat{ }
+  .stat b{ font-family:'Anton', sans-serif; font-size:1.8rem; display:block;
+    background: linear-gradient(120deg, var(--glow), var(--blue));
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .stat span{ color: var(--muted); font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; }
+
+  /* ================= WORK GRID — 3D TILT CARDS ================= */
+  .work-grid{
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .tilt-wrap{ perspective: 1200px; }
+
+  .project-card{
+    position:relative; border-radius:20px; overflow:hidden;
+    aspect-ratio: 4/5;
+    background: var(--glass);
+    border:1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    transform-style: preserve-3d;
+    transition: transform .15s ease-out, box-shadow .3s ease;
+    cursor:pointer;
+  }
+  .project-card:hover{ box-shadow: 0 20px 60px rgba(124,58,237,0.35); }
+
+  .project-thumb{
+    position:absolute; inset:0;
+    background: linear-gradient(150deg, rgba(124,58,237,0.5), rgba(59,130,246,0.35)), #14141c;
+    transform: translateZ(20px);
+    display:flex; align-items:center; justify-content:center;
+  }
+  /* REPLACE: set background-image: url('project-thumbnail.jpg') on .project-thumb per project,
+     or swap this div for a <video> / <iframe> embed of your work. */
+
+  .project-thumb .placeholder-icon{
+    width:56px; height:56px; opacity:.5;
+  }
+
+  .project-info{
+    position:absolute; left:0; right:0; bottom:0; padding: 1.6rem;
+    transform: translateZ(40px);
+    background: linear-gradient(to top, rgba(5,5,10,0.92), transparent);
+  }
+  .project-tag{
+    font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase;
+    color: var(--glow); margin-bottom:0.4rem; display:block;
+  }
+  .project-title{ font-family:'Anton', sans-serif; font-size:1.3rem; text-transform:uppercase; }
+
+  .shine{
+    position:absolute; inset:0; pointer-events:none;
+    background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.18), transparent 45%);
+    transform: translateZ(60px);
+    opacity:0; transition: opacity .3s ease;
+  }
+  .project-card:hover .shine{ opacity:1; }
+
+  /* ================= REEL ================= */
+  .reel-frame{
+    padding: 10px; border-radius:24px;
+    background: linear-gradient(135deg, rgba(124,58,237,0.4), rgba(59,130,246,0.3));
+  }
+  .reel-inner{
+    border-radius:18px; overflow:hidden; aspect-ratio:16/9;
+    background:#000; position:relative;
+  }
+  .reel-inner iframe{ width:100%; height:100%; border:0; display:block; }
+  /* REPLACE the iframe src below with your Vimeo/YouTube showreel embed URL */
+
+  /* ================= CONTACT ================= */
+  .contact-panel{
+    padding: 5rem 5vw; text-align:center; border-radius:32px;
+    position:relative; overflow:hidden;
+  }
+  .contact-panel::before{
+    content:''; position:absolute; inset:-40%; z-index:-1;
+    background: conic-gradient(from 0deg, rgba(124,58,237,0.25), rgba(59,130,246,0.2), rgba(124,58,237,0.25));
+    animation: rotateGlow 14s linear infinite;
+  }
+  @keyframes rotateGlow{ to{ transform: rotate(360deg); } }
+
+  .contact-title{
+    font-family:'Anton', sans-serif; font-size: clamp(2rem, 5vw, 3.6rem);
+    text-transform:uppercase; margin-bottom:1.2rem;
+  }
+  .contact-sub{ color:var(--muted); font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.2rem; margin-bottom:2.6rem; }
+
+  .liquid-btn{
+    display:inline-flex; align-items:center; gap:0.6rem;
+    padding: 1.05rem 2.6rem; border-radius:100px;
+    background: linear-gradient(120deg, var(--purple), var(--blue));
+    color:#fff; text-decoration:none; font-weight:600; font-size:0.95rem;
+    letter-spacing:0.03em;
+    box-shadow: 0 10px 40px rgba(124,58,237,0.45);
+    transition: transform .3s ease, box-shadow .3s ease;
+    position:relative; overflow:hidden;
+  }
+  .liquid-btn:hover{ transform: translateY(-3px) scale(1.03); box-shadow:0 16px 50px rgba(124,58,237,0.6); }
+
+  .social-row{
+    display:flex; gap:2.2rem; justify-content:center; margin-top:2.6rem;
+    font-size:0.85rem; letter-spacing:0.06em;
+  }
+  .social-row a{ color: var(--muted); text-decoration:none; transition: color .3s ease; }
+  .social-row a:hover{ color: var(--glow); }
+
+  footer{
+    text-align:center; padding: 3rem 0 2.4rem; color: var(--muted);
+    font-size:0.78rem; letter-spacing:0.05em; position:relative; z-index:2;
+  }
+
+  /* ---------- scroll reveal ---------- */
+  .reveal{ opacity:0; transform: translateY(50px) rotateX(6deg); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in{ opacity:1; transform: translateY(0) rotateX(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--glow); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<div class="bg-wash"></div>
+
+<!-- SVG goo filter used to blend the hero droplets into one liquid mass -->
+<svg width="0" height="0">
+  <filter id="goo">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur" />
+    <feColorMatrix in="blur" mode="matrix"
+      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -11" result="goo" />
+  </filter>
+</svg>
+
+<nav>
+  <div class="nav-logo">YASH GHAYAL</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#reel">Reel</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div id="goo-canvas"></div>
+  <div class="hero-content">
+    <div class="eyebrow">Editor · VFX · Filmmaker</div>
+    <h1 id="hero-title">YASH GHAYAL</h1>
+    <p class="hero-tagline">Turning ideas into motion that connects, converts, and captivates.</p>
+  </div>
+  <div class="scroll-cue"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="about reveal">
+    <div class="about-portrait glass-panel" style="background-image:url('assets/yash-portrait.png'); background-size:cover; background-position:center top; color:transparent;"></div>
+    <div class="about-copy">
+      <div class="section-eyebrow">Who I Am</div>
+      <p><strong>I don't just edit videos — I craft visual experiences.</strong> From storytelling and VFX to branding and promotional ads, I turn ideas into motion that connects, converts, and captivates.</p>
+      <p>Whether it's a film, an ad, or a social media campaign, I make sure the story looks as powerful as it feels — with 2+ years creating visually driven content for US-based companies across social media, helping brands grow and connect with their audience.</p>
+      <div class="stat-row">
+        <div class="stat"><b>50+</b><span>Creative Shoots &amp; Edits (Reels)</span></div>
+        <div class="stat"><b>2+</b><span>Years — US Companies (Social Media)</span></div>
+        <div class="stat"><b>4</b><span>Core Skills — Edit / VFX / Social / PR</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WORK ================= -->
+<section id="work">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">Selected Work</div>
+    <div class="section-title">Recent Projects</div>
+  </div>
+  <div class="work-grid">
+
+    <div class="tilt-wrap reveal">
+      <a class="project-card" href="https://youtu.be/XUsenE6FYMs" target="_blank" rel="noopener noreferrer" style="text-decoration:none; color:inherit; display:block;">
+        <div class="project-thumb" style="background-image:url('https://img.youtube.com/vi/XUsenE6FYMs/hqdefault.jpg'); background-size:cover; background-position:center;">
+          <svg class="placeholder-icon" viewBox="0 0 24 24" fill="rgba(255,255,255,0.85)"><circle cx="12" cy="12" r="11" fill="rgba(0,0,0,0.35)"/><path d="M9.5 7.5l7 4.5-7 4.5v-9z"/></svg>
+        </div>
+        <div class="shine"></div>
+        <div class="project-info">
+          <span class="project-tag">YouTube · Client Project</span>
+          <div class="project-title">Edited &amp; Directed Video</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="tilt-wrap reveal">
+      <a class="project-card" href="https://www.instagram.com/nyeindia/reel/DapEOddoOEU/" target="_blank" rel="noopener noreferrer" style="text-decoration:none; color:inherit; display:block;">
+        <div class="project-thumb">
+          <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="rgba(255,255,255,0.85)"/></svg>
+        </div>
+        <div class="shine"></div>
+        <div class="project-info">
+          <span class="project-tag">Instagram Reel · Client: @nyeindia</span>
+          <div class="project-title">Social Media Reel</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="tilt-wrap reveal">
+      <a class="project-card" href="https://www.instagram.com/nyeindia/reel/DaCye7tI9b1/" target="_blank" rel="noopener noreferrer" style="text-decoration:none; color:inherit; display:block;">
+        <div class="project-thumb">
+          <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="rgba(255,255,255,0.85)"/></svg>
+        </div>
+        <div class="shine"></div>
+        <div class="project-info">
+          <span class="project-tag">Instagram Reel · Client: @nyeindia</span>
+          <div class="project-title">Social Media Reel</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- REPLACE / duplicate .tilt-wrap blocks above for each additional project -->
+
+  </div>
+  <p class="work-disclaimer" style="margin-top:2.2rem; color:var(--muted); font-size:0.8rem; font-family:'Inter',sans-serif; line-height:1.6; max-width:640px;">
+    The projects above were created as part of paid client engagements. All brand names, footage, and content remain the property of their respective owners and are shown here strictly for portfolio and demonstration purposes, credited to the client where applicable.
+  </p>
+</section>
+
+<!-- ================= REEL ================= -->
+<section id="reel">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">Watch</div>
+    <div class="section-title">Showreel</div>
+  </div>
+  <div class="reel-frame reveal">
+    <div class="reel-inner">
+      <iframe src="https://player.vimeo.com/video/76979871" title="Showreel" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+      <!-- REPLACE src with your own Vimeo or YouTube embed URL -->
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <div class="contact-panel glass-panel reveal">
+    <div class="section-eyebrow" style="text-align:center;">Let's Make Something</div>
+    <div class="contact-title">Get In Touch</div>
+    <p class="contact-sub">Available for commercial, branded, and narrative work.</p>
+    <a class="liquid-btn" href="mailto:yash.ghayal@aol.com">Email Me →</a>
+    <div class="social-row">
+      <a href="tel:+919370309344">+91 93703 09344</a>
+      <a href="mailto:yash.ghayal@aol.com">yash.ghayal@aol.com</a>
+      <a href="#">Instagram</a>
+      <a href="#">Vimeo</a>
+      <!-- REPLACE the Instagram / Vimeo hrefs with your real profile links -->
+    </div>
+    <p style="margin-top:1.6rem; color:var(--muted); font-family:'Cormorant Garamond', serif; font-style:italic; font-size:0.95rem;">Based in Thane, Mumbai &amp; Baner, Pune</p>
+  </div>
+</section>
+
+<footer>© 2026 Yash Ghayal. All rights reserved.</footer>
+
+<script>
+  // Split hero title into per-letter spans for the staggered reveal animation
+  const heroTitle = document.getElementById('hero-title');
+  const text = heroTitle.textContent.trim();
+  heroTitle.innerHTML = '';
+  [...text].forEach((ch, i) => {
+    const span = document.createElement('span');
+    span.textContent = ch === ' ' ? '\u00A0' : ch;
+    span.style.animationDelay = (0.05 * i) + 's';
+    heroTitle.appendChild(span);
+  });
+
+  // Floating liquid glass droplets in the hero, merged via the SVG goo filter
+  const gooCanvas = document.getElementById('goo-canvas');
+  const dropletCount = 7;
+  const droplets = [];
+  for (let i = 0; i < dropletCount; i++) {
+    const el = document.createElement('div');
+    el.className = 'droplet';
+    const size = 90 + Math.random() * 160;
+    el.style.width = size + 'px';
+    el.style.height = size + 'px';
+    const x = Math.random() * 100, y = Math.random() * 100;
+    el.style.left = x + '%';
+    el.style.top = y + '%';
+    gooCanvas.appendChild(el);
+    droplets.push({ el, x, y, vx: (Math.random()-0.5)*0.06, vy: (Math.random()-0.5)*0.06 });
+  }
+  function animateDroplets(){
+    droplets.forEach(d => {
+      d.x += d.vx; d.y += d.vy;
+      if (d.x < -10 || d.x > 110) d.vx *= -1;
+      if (d.y < -10 || d.y > 110) d.vy *= -1;
+      d.el.style.left = d.x + '%';
+      d.el.style.top = d.y + '%';
+    });
+    requestAnimationFrame(animateDroplets);
+  }
+  animateDroplets();
+
+  // Mouse parallax on the hero droplets (subtle depth)
+  document.querySelector('.hero').addEventListener('mousemove', (e) => {
+    const { innerWidth: w, innerHeight: h } = window;
+    const dx = (e.clientX / w - 0.5) * 20;
+    const dy = (e.clientY / h - 0.5) * 20;
+    gooCanvas.style.transform = `translate(${dx}px, ${dy}px)`;
+  });
+
+  // 3D tilt on project cards, following cursor position
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width;
+      const py = (e.clientY - rect.top) / rect.height;
+      const rotateY = (px - 0.5) * 22;
+      const rotateX = (0.5 - py) * 22;
+      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+      card.style.setProperty('--mx', (px*100) + '%');
+      card.style.setProperty('--my', (py*100) + '%');
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'rotateX(0) rotateY(0) scale(1)';
+    });
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('in');
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
