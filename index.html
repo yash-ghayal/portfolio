@@ -101,11 +101,27 @@
   .hero-content{ position:relative; z-index:5; }
 
   .eyebrow{
-    font-family:'Cormorant Garamond', serif;
-    font-style: italic; font-weight:500;
-    letter-spacing:0.15em; text-transform:uppercase;
-    color: var(--glow); font-size:1rem; margin-bottom:1.4rem;
-    opacity:0; animation: fadeUp 1s ease forwards .2s;
+    display:inline-flex; align-items:center; gap:0.7rem;
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    letter-spacing:0.22em; text-transform:uppercase;
+    color:#fff; font-size: clamp(0.95rem, 1.6vw, 1.35rem);
+    padding: 0.85rem 2.1rem;
+    margin-bottom:2rem;
+    border-radius:100px;
+    background: linear-gradient(120deg, rgba(124,58,237,0.28), rgba(59,130,246,0.22));
+    border:1px solid rgba(255,255,255,0.22);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset, 0 8px 40px rgba(124,58,237,0.35);
+    opacity:0; animation: fadeUp 1s ease forwards .2s, pulseGlow 3.2s ease-in-out infinite 1.2s;
+  }
+  .eyebrow::before, .eyebrow::after{
+    content:''; width:6px; height:6px; border-radius:50%;
+    background: linear-gradient(135deg, var(--glow), var(--blue));
+  }
+  @keyframes pulseGlow{
+    0%,100%{ box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset, 0 8px 40px rgba(124,58,237,0.35); }
+    50%{ box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset, 0 8px 60px rgba(124,58,237,0.6); }
   }
 
   .hero h1{
@@ -142,6 +158,50 @@
   @keyframes fadeUp{ from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);} }
   @keyframes letterUp{ to{ opacity:1; transform:translateY(0) rotateX(0);} }
   @keyframes scrollPulse{ 0%,100%{opacity:.3;} 50%{opacity:1;} }
+
+  /* ---------- floating 3D filmmaking icons in hero ---------- */
+  .floating-icons{
+    position:absolute; inset:0; z-index:2; pointer-events:none;
+    perspective: 1000px;
+  }
+  .float-icon{
+    position:absolute;
+    filter: drop-shadow(0 8px 24px rgba(124,58,237,0.45));
+    opacity:0.55;
+    animation: bob 7s ease-in-out infinite;
+    transform-style: preserve-3d;
+  }
+  .float-icon svg{ width:100%; height:100%; display:block; }
+  .fi-1{ top:16%; left:9%;  width:64px; height:64px; animation-duration:6.5s; animation-delay:0s; }
+  .fi-2{ top:68%; left:14%; width:52px; height:52px; animation-duration:8s;   animation-delay:.6s; }
+  .fi-3{ top:22%; right:10%; width:58px; height:58px; animation-duration:7.5s; animation-delay:.3s; }
+  .fi-4{ top:70%; right:13%; width:46px; height:46px; animation-duration:6s;   animation-delay:1s; }
+  .fi-5{ top:44%; left:5%;  width:38px; height:38px; animation-duration:9s;   animation-delay:.8s; }
+  .fi-6{ top:8%;  right:26%; width:34px; height:34px; animation-duration:7s;  animation-delay:.4s; }
+
+  @keyframes bob{
+    0%,100%{ transform: translateY(0) rotateZ(-4deg) rotateY(0deg); }
+    50%{ transform: translateY(-26px) rotateZ(5deg) rotateY(12deg); }
+  }
+
+  @media (max-width:760px){
+    .float-icon{ opacity:0.32; transform:scale(0.75); }
+  }
+
+  /* ---------- software badge chips ---------- */
+  .tool-row{
+    display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap;
+    margin-top:2.2rem;
+    opacity:0; animation: fadeUp 1s ease forwards 1.35s;
+  }
+  .tool-chip{
+    display:flex; align-items:center; gap:0.5rem;
+    padding: 0.5rem 1.1rem; border-radius:100px;
+    background: var(--glass); border:1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    font-size:0.78rem; letter-spacing:0.04em; color: var(--muted);
+  }
+  .tool-dot{ width:8px; height:8px; border-radius:50%; }
 
   /* ================= SECTION SHELL ================= */
   section{ position:relative; z-index:2; padding: 10vh 6vw; }
@@ -256,6 +316,45 @@
     background:#000; position:relative;
   }
   .reel-inner iframe{ width:100%; height:100%; border:0; display:block; }
+
+  /* ---------- SHOOT section — native video gallery ---------- */
+  .shoot-grid{
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  .shoot-frame{
+    padding:8px; border-radius:20px;
+    background: linear-gradient(135deg, rgba(124,58,237,0.35), rgba(59,130,246,0.25));
+  }
+  .shoot-inner{
+    border-radius:14px; overflow:hidden; aspect-ratio:9/16;
+    background:#000; position:relative;
+  }
+  .shoot-inner video{ width:100%; height:100%; object-fit:cover; display:block; background:#000; }
+  .sound-btn{
+    position:absolute; bottom:14px; right:14px; z-index:3;
+    width:42px; height:42px; border-radius:50%;
+    background: rgba(5,5,10,0.55);
+    border:1px solid rgba(255,255,255,0.25);
+    backdrop-filter: blur(10px);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition: background .25s ease, transform .2s ease;
+  }
+  .sound-btn:hover{ background: rgba(5,5,10,0.75); transform: scale(1.08); }
+  .sound-btn svg{ width:18px; height:18px; }
+  .sound-btn .mute-x1, .sound-btn .mute-x2{ opacity:1; }
+  .sound-btn.is-unmuted .mute-x1, .sound-btn.is-unmuted .mute-x2{ opacity:0; }
+  .shoot-caption{
+    margin-top:0.9rem; font-size:0.85rem; color: var(--muted);
+    display:flex; justify-content:space-between; gap:1rem;
+  }
+  .shoot-caption b{ color: var(--text); font-weight:500; }
+
+  .shoot-empty{
+    text-align:center; padding: 3rem 1.5rem; border-radius:20px;
+    color: var(--muted); font-size:0.9rem; line-height:1.7;
+    background: var(--glass); border:1px dashed var(--glass-border);
+  }
   /* REPLACE the iframe src below with your Vimeo/YouTube showreel embed URL */
 
   /* ================= CONTACT ================= */
@@ -329,6 +428,7 @@
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#work">Work</a></li>
+    <li><a href="#shoot">Shoot</a></li>
     <li><a href="#reel">Reel</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -337,10 +437,65 @@
 <!-- ================= HERO ================= -->
 <section class="hero">
   <div id="goo-canvas"></div>
+
+  <div class="floating-icons" id="floating-icons">
+    <!-- Camera -->
+    <div class="float-icon fi-1"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="6" y="20" width="42" height="30" rx="6" stroke="url(#g1)" stroke-width="2.4"/>
+      <circle cx="27" cy="35" r="10" stroke="url(#g1)" stroke-width="2.4"/>
+      <path d="M20 20l4-7h10l4 7" stroke="url(#g1)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M48 27l10-5v20l-10-5" stroke="url(#g1)" stroke-width="2.4" stroke-linejoin="round"/>
+      <defs><linearGradient id="g1" x1="0" y1="0" x2="64" y2="64"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
+    </svg></div>
+    <!-- Film reel -->
+    <div class="float-icon fi-2"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="26" stroke="url(#g2)" stroke-width="2.4"/>
+      <circle cx="32" cy="32" r="6" stroke="url(#g2)" stroke-width="2.4"/>
+      <circle cx="32" cy="14" r="5" stroke="url(#g2)" stroke-width="2"/>
+      <circle cx="48" cy="24" r="5" stroke="url(#g2)" stroke-width="2"/>
+      <circle cx="42" cy="46" r="5" stroke="url(#g2)" stroke-width="2"/>
+      <circle cx="20" cy="46" r="5" stroke="url(#g2)" stroke-width="2"/>
+      <circle cx="16" cy="24" r="5" stroke="url(#g2)" stroke-width="2"/>
+      <defs><linearGradient id="g2" x1="0" y1="0" x2="64" y2="64"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
+    </svg></div>
+    <!-- Clapperboard -->
+    <div class="float-icon fi-3"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="8" y="24" width="48" height="32" rx="4" stroke="url(#g3)" stroke-width="2.4"/>
+      <path d="M8 24l6-14h44l-6 14" stroke="url(#g3)" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M18 10l6 14M30 10l6 14M42 10l6 14" stroke="url(#g3)" stroke-width="2"/>
+      <defs><linearGradient id="g3" x1="0" y1="0" x2="64" y2="64"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
+    </svg></div>
+    <!-- Scissors -->
+    <div class="float-icon fi-4"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="14" cy="16" r="6" stroke="url(#g4)" stroke-width="2.4"/>
+      <circle cx="14" cy="48" r="6" stroke="url(#g4)" stroke-width="2.4"/>
+      <path d="M19 20l32 24M19 44l32-24" stroke="url(#g4)" stroke-width="2.4" stroke-linecap="round"/>
+      <defs><linearGradient id="g4" x1="0" y1="0" x2="64" y2="64"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
+    </svg></div>
+    <!-- Play/timeline -->
+    <div class="float-icon fi-5"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="6" y="8" width="52" height="48" rx="8" stroke="url(#g5)" stroke-width="2.4"/>
+      <path d="M26 22l16 10-16 10V22z" fill="url(#g5)"/>
+      <defs><linearGradient id="g5" x1="0" y1="0" x2="64" y2="64"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
+    </svg></div>
+    <!-- Aperture -->
+    <div class="float-icon fi-6"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="24" stroke="url(#g6)" stroke-width="2.2"/>
+      <path d="M32 12l12 20H20l12-20z" stroke="url(#g6)" stroke-width="2"/>
+      <path d="M12 40l24-8-8 24-16-16z" stroke="url(#g6)" stroke-width="2"/>
+      <defs><linearGradient id="g6" x1="0" y1="0" x2="64" y2="64"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
+    </svg></div>
+  </div>
+
   <div class="hero-content">
     <div class="eyebrow">Editor · VFX · Filmmaker</div>
     <h1 id="hero-title">YASH GHAYAL</h1>
     <p class="hero-tagline">Turning ideas into motion that connects, converts, and captivates.</p>
+    <div class="tool-row">
+      <div class="tool-chip"><span class="tool-dot" style="background:#9999ff;"></span>Premiere Pro</div>
+      <div class="tool-chip"><span class="tool-dot" style="background:#b39ddb;"></span>After Effects</div>
+      <div class="tool-chip"><span class="tool-dot" style="background:#6ee7b7;"></span>CapCut</div>
+    </div>
   </div>
   <div class="scroll-cue"><span>Scroll</span><div class="scroll-line"></div></div>
 </section>
@@ -414,6 +569,82 @@
   </div>
   <p class="work-disclaimer" style="margin-top:2.2rem; color:var(--muted); font-size:0.8rem; font-family:'Inter',sans-serif; line-height:1.6; max-width:640px;">
     The projects above were created as part of paid client engagements. All brand names, footage, and content remain the property of their respective owners and are shown here strictly for portfolio and demonstration purposes, credited to the client where applicable.
+  </p>
+</section>
+
+<!-- ================= SHOOT ================= -->
+<section id="shoot">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">Behind The Lens</div>
+    <div class="section-title">Shoot</div>
+  </div>
+
+  <div class="shoot-grid">
+
+    <div class="reveal">
+      <div class="shoot-frame">
+        <div class="shoot-inner">
+          <video class="shoot-video" autoplay muted loop playsinline preload="metadata" poster="assets/shoot-1-poster.jpg">
+            <source src="assets/shoot-1.mp4" type="video/mp4">
+          </video>
+          <button class="sound-btn" aria-label="Toggle sound" onclick="toggleShootSound(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="4,9 8,9 13,4 13,20 8,15 4,15" fill="#fff" stroke="none"/>
+              <line class="mute-x1" x1="17" y1="9" x2="22" y2="15"/>
+              <line class="mute-x2" x1="22" y1="9" x2="17" y2="15"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="shoot-caption"><b>On-Set · Reel Cut 01</b><span>2026</span></div>
+    </div>
+
+    <div class="reveal">
+      <div class="shoot-frame">
+        <div class="shoot-inner">
+          <video class="shoot-video" autoplay muted loop playsinline preload="metadata" poster="assets/shoot-2-poster.jpg">
+            <source src="assets/shoot-2.mp4" type="video/mp4">
+          </video>
+          <button class="sound-btn" aria-label="Toggle sound" onclick="toggleShootSound(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="4,9 8,9 13,4 13,20 8,15 4,15" fill="#fff" stroke="none"/>
+              <line class="mute-x1" x1="17" y1="9" x2="22" y2="15"/>
+              <line class="mute-x2" x1="22" y1="9" x2="17" y2="15"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="shoot-caption"><b>On-Set · Reel Cut 02</b><span>2026</span></div>
+    </div>
+
+    <div class="reveal">
+      <div class="shoot-frame">
+        <div class="shoot-inner">
+          <video class="shoot-video" autoplay muted loop playsinline preload="metadata" poster="assets/shoot-3-poster.jpg">
+            <source src="assets/shoot-3.mp4" type="video/mp4">
+          </video>
+          <button class="sound-btn" aria-label="Toggle sound" onclick="toggleShootSound(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="4,9 8,9 13,4 13,20 8,15 4,15" fill="#fff" stroke="none"/>
+              <line class="mute-x1" x1="17" y1="9" x2="22" y2="15"/>
+              <line class="mute-x2" x1="22" y1="9" x2="17" y2="15"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="shoot-caption"><b>On-Set · Reel Cut 03</b><span>2026</span></div>
+    </div>
+
+    <!-- REPLACE: duplicate this block for each clip. Change:
+         - video source src="assets/your-file.mp4"  (must match the filename you upload)
+         - poster="assets/your-poster.jpg"           (a still thumbnail, optional — remove the attribute if you skip it)
+         - the caption text
+         Videos autoplay muted + loop continuously and can never be paused — visitors can only toggle sound on/off with the speaker button. -->
+
+  </div>
+
+  <p class="work-disclaimer" style="margin-top:2.2rem; color:var(--muted); font-size:0.8rem; font-family:'Inter',sans-serif; line-height:1.6; max-width:640px;">
+    Upload your own clips to the <code style="color:var(--glow)">assets</code> folder in your repo and point each &lt;source&gt; tag above to the matching filename — they'll play natively right here, no external platform needed. Keep files compressed (under ~50MB each) for fast loading.
   </p>
 </section>
 
@@ -499,6 +730,21 @@
     gooCanvas.style.transform = `translate(${dx}px, ${dy}px)`;
   });
 
+  // Mouse parallax on floating filmmaking icons — each at a different depth
+  const floatIcons = document.querySelectorAll('.float-icon');
+  document.querySelector('.hero').addEventListener('mousemove', (e) => {
+    const { innerWidth: w, innerHeight: h } = window;
+    const px = (e.clientX / w - 0.5);
+    const py = (e.clientY / h - 0.5);
+    floatIcons.forEach((icon, i) => {
+      const depth = 14 + (i % 3) * 10;
+      icon.style.setProperty('--parallax-x', (px * depth) + 'px');
+      icon.style.setProperty('--parallax-y', (py * depth) + 'px');
+      icon.style.marginLeft = (px * depth) + 'px';
+      icon.style.marginTop = (py * depth) + 'px';
+    });
+  });
+
   // 3D tilt on project cards, following cursor position
   document.querySelectorAll('.project-card').forEach(card => {
     card.addEventListener('mousemove', (e) => {
@@ -524,6 +770,29 @@
     });
   }, { threshold: 0.15 });
   revealEls.forEach(el => io.observe(el));
+
+  // Shoot section: videos autoplay muted + loop forever, never pause.
+  // The speaker button only toggles audio on/off — playback itself is untouched.
+  function toggleShootSound(btn){
+    const video = btn.parentElement.querySelector('.shoot-video');
+    if (!video) return;
+    video.muted = !video.muted;
+    btn.classList.toggle('is-unmuted', !video.muted);
+    if (!video.muted && video.paused) video.play().catch(() => {});
+  }
+
+  // Safety net: if a browser blocks autoplay, retry on first user interaction,
+  // and make sure paused clips resume (they should never show a paused frame).
+  document.querySelectorAll('.shoot-video').forEach(v => {
+    v.addEventListener('pause', () => {
+      // Only auto-resume if the pause wasn't caused by the tab being hidden
+      if (document.visibilityState === 'visible') v.play().catch(() => {});
+    });
+    v.play().catch(() => {
+      const resume = () => { v.play().catch(()=>{}); window.removeEventListener('click', resume); };
+      window.addEventListener('click', resume, { once:true });
+    });
+  });
 </script>
 
 </body>
