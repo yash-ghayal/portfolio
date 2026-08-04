@@ -124,6 +124,31 @@
     50%{ box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset, 0 8px 60px rgba(124,58,237,0.6); }
   }
 
+  .credentials-row{
+    display:flex; gap:0.6rem; justify-content:center; flex-wrap:wrap;
+    margin-bottom:1.6rem;
+    opacity:0; animation: fadeUp 1s ease forwards .5s;
+  }
+  .credential-chip{
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:500;
+    font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+    color: var(--muted); letter-spacing:0.02em;
+  }
+  .credential-chip b{
+    color: var(--glow); font-weight:500;
+  }
+  .credential-dot{ color: var(--muted); margin: 0 0.7rem; opacity:0.5; }
+
+  .hero-catchline{
+    font-family:'Inter', sans-serif; font-weight:500;
+    font-size: clamp(1rem, 1.7vw, 1.3rem);
+    color: var(--text);
+    max-width: 680px; margin: 1.6rem auto 0;
+    line-height:1.6;
+    opacity:0; animation: fadeUp 1s ease forwards 1.3s;
+  }
+  .hero-catchline em{ color: var(--glow); font-style:italic; }
+
   .hero h1{
     font-family:'Anton', sans-serif;
     font-size: clamp(3.2rem, 11vw, 9rem);
@@ -248,6 +273,27 @@
   .about-copy strong{ color: var(--text); font-weight:500; }
 
   .stat-row{ display:flex; gap:2.4rem; margin-top:2.2rem; flex-wrap:wrap; }
+
+  .gear-block{ margin-top: 2.6rem; }
+  .gear-heading{
+    font-family:'Inter', sans-serif; font-weight:600; font-size:0.85rem;
+    letter-spacing:0.1em; text-transform:uppercase; color: var(--glow);
+    margin-bottom:1.1rem;
+  }
+  .gear-groups{ display:flex; flex-direction:column; gap:1.1rem; }
+  .gear-group-label{
+    font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
+    color: var(--muted); margin-bottom:0.55rem; display:block;
+  }
+  .gear-chips{ display:flex; flex-wrap:wrap; gap:0.6rem; }
+  .gear-chip{
+    display:inline-flex; align-items:center; gap:0.5rem;
+    padding: 0.5rem 1rem; border-radius:100px;
+    background: var(--glass); border:1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    font-size:0.82rem; color: var(--text); font-weight:400;
+  }
+  .gear-chip .gear-dot{ width:7px; height:7px; border-radius:50%; background: linear-gradient(135deg, var(--glow), var(--blue)); flex-shrink:0; }
   .stat{ }
   .stat b{ font-family:'Anton', sans-serif; font-size:1.8rem; display:block;
     background: linear-gradient(120deg, var(--glow), var(--blue));
@@ -489,8 +535,14 @@
 
   <div class="hero-content">
     <div class="eyebrow">Editor · VFX · Filmmaker</div>
+    <div class="credentials-row">
+      <span class="credential-chip"><b>Certified</b> AI Filmmaker</span>
+      <span class="credential-dot">•</span>
+      <span class="credential-chip">Podcast <b>Specialist</b></span>
+    </div>
     <h1 id="hero-title">YASH GHAYAL</h1>
     <p class="hero-tagline">Turning ideas into motion that connects, converts, and captivates.</p>
+    <p class="hero-catchline">Got a script? Hand it over and watch the <em>magic</em> happen. Don't have one? Even better — give me a topic, and I'll write something so good you'll swear it was your idea. Trust me, I don't bite. Much.</p>
     <div class="tool-row">
       <div class="tool-chip"><span class="tool-dot" style="background:#9999ff;"></span>Premiere Pro</div>
       <div class="tool-chip"><span class="tool-dot" style="background:#b39ddb;"></span>After Effects</div>
@@ -512,6 +564,33 @@
         <div class="stat"><b>50+</b><span>Creative Shoots &amp; Edits (Reels)</span></div>
         <div class="stat"><b>2+</b><span>Years — US Companies (Social Media)</span></div>
         <div class="stat"><b>4</b><span>Core Skills — Edit / VFX / Social / PR</span></div>
+      </div>
+
+      <div class="gear-block">
+        <div class="gear-heading">Gear I Bring — At No Extra Cost</div>
+        <div class="gear-groups">
+          <div>
+            <span class="gear-group-label">Camera</span>
+            <div class="gear-chips">
+              <span class="gear-chip"><span class="gear-dot"></span>Insta360 Camera</span>
+              <span class="gear-chip"><span class="gear-dot"></span>DJI / GoPro Action Camera</span>
+              <span class="gear-chip"><span class="gear-dot"></span>Specialized DSLR (Video &amp; Photo)</span>
+            </div>
+          </div>
+          <div>
+            <span class="gear-group-label">Audio</span>
+            <div class="gear-chips">
+              <span class="gear-chip"><span class="gear-dot"></span>4x AI Noise-Cancelling Mics</span>
+            </div>
+          </div>
+          <div>
+            <span class="gear-group-label">Support &amp; Lighting</span>
+            <div class="gear-chips">
+              <span class="gear-chip"><span class="gear-dot"></span>3 Tripod Types</span>
+              <span class="gear-chip"><span class="gear-dot"></span>Full Lighting Kit</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
