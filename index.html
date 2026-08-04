@@ -4,7 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yash Ghayal — Editor / VFX / Filmmaker</title>
-<meta name="description" content="Yash Ghayal — Editor, VFX Artist & Filmmaker Portfolio">
+<meta name="description" content="Yash Ghayal — Editor, VFX Artist & Filmmaker Portfolio. Certified AI Filmmaker & Podcast Specialist. 50+ creative shoots and edits.">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png">
+
+<!-- Open Graph / social share preview (WhatsApp, Instagram, LinkedIn, etc.) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Yash Ghayal — Editor / VFX / Filmmaker">
+<meta property="og:description" content="Certified AI Filmmaker & Podcast Specialist. Editing, VFX, and social media content that connects, converts, and captivates.">
+<meta property="og:image" content="https://yash-ghayal.github.io/portfolio/assets/og-banner.jpg">
+<meta property="og:url" content="https://yash-ghayal.github.io/portfolio/">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Yash Ghayal — Editor / VFX / Filmmaker">
+<meta name="twitter:description" content="Certified AI Filmmaker & Podcast Specialist. 50+ creative shoots and edits.">
+<meta name="twitter:image" content="https://yash-ghayal.github.io/portfolio/assets/og-banner.jpg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -480,6 +500,7 @@
   </ul>
 </nav>
 
+<main>
 <!-- ================= HERO ================= -->
 <section class="hero">
   <div id="goo-canvas"></div>
@@ -663,7 +684,7 @@
     <div class="reveal">
       <div class="shoot-frame">
         <div class="shoot-inner">
-          <video class="shoot-video" autoplay muted loop playsinline preload="metadata" poster="assets/shoot-1-poster.jpg">
+          <video class="shoot-video" autoplay muted loop playsinline preload="metadata">
             <source src="assets/shoot-1.mp4" type="video/mp4">
           </video>
           <button class="sound-btn" aria-label="Toggle sound" onclick="toggleShootSound(this)">
@@ -681,7 +702,7 @@
     <div class="reveal">
       <div class="shoot-frame">
         <div class="shoot-inner">
-          <video class="shoot-video" autoplay muted loop playsinline preload="metadata" poster="assets/shoot-2-poster.jpg">
+          <video class="shoot-video" autoplay muted loop playsinline preload="metadata">
             <source src="assets/shoot-2.mp4" type="video/mp4">
           </video>
           <button class="sound-btn" aria-label="Toggle sound" onclick="toggleShootSound(this)">
@@ -699,7 +720,7 @@
     <div class="reveal">
       <div class="shoot-frame">
         <div class="shoot-inner">
-          <video class="shoot-video" autoplay muted loop playsinline preload="metadata" poster="assets/shoot-3-poster.jpg">
+          <video class="shoot-video" autoplay muted loop playsinline preload="metadata">
             <source src="assets/shoot-3.mp4" type="video/mp4">
           </video>
           <button class="sound-btn" aria-label="Toggle sound" onclick="toggleShootSound(this)">
@@ -735,7 +756,7 @@
   </div>
   <div class="reel-frame reveal">
     <div class="reel-inner">
-      <video id="showreel-video" muted loop playsinline preload="metadata" poster="assets/showreel-poster.jpg" style="width:100%; height:100%; object-fit:cover; display:block; background:#000;">
+      <video id="showreel-video" muted loop playsinline preload="metadata" style="width:100%; height:100%; object-fit:cover; display:block; background:#000;">
         <source src="assets/showreel.mp4" type="video/mp4">
       </video>
       <button class="sound-btn" id="showreel-sound-btn" style="position:absolute; bottom:18px; right:18px;" aria-label="Toggle sound" onclick="toggleReelSound()">
@@ -747,7 +768,7 @@
       </button>
       <!-- Upload your showreel file to the assets folder and name it "showreel.mp4"
            (or edit the src above to match your own filename).
-           poster="assets/showreel-poster.jpg" is an optional cover image shown
+           is an optional cover image shown
            before the video starts — remove that attribute if you don't have one.
            This video starts playing automatically once scrolled into view (muted),
            and pauses when scrolled out of view. Sound is toggled with the button. -->
@@ -772,6 +793,8 @@
     <p style="margin-top:1.6rem; color:var(--muted); font-family:'Cormorant Garamond', serif; font-style:italic; font-size:0.95rem;">Based in Thane, Mumbai &amp; Baner, Pune</p>
   </div>
 </section>
+
+</main>
 
 <footer>© 2026 Yash Ghayal. All rights reserved.</footer>
 
