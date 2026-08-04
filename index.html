@@ -656,8 +656,22 @@
   </div>
   <div class="reel-frame reveal">
     <div class="reel-inner">
-      <iframe src="https://player.vimeo.com/video/76979871" title="Showreel" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-      <!-- REPLACE src with your own Vimeo or YouTube embed URL -->
+      <video id="showreel-video" muted loop playsinline preload="metadata" poster="assets/showreel-poster.jpg" style="width:100%; height:100%; object-fit:cover; display:block; background:#000;">
+        <source src="assets/showreel.mp4" type="video/mp4">
+      </video>
+      <button class="sound-btn" id="showreel-sound-btn" style="position:absolute; bottom:18px; right:18px;" aria-label="Toggle sound" onclick="toggleReelSound()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="4,9 8,9 13,4 13,20 8,15 4,15" fill="#fff" stroke="none"/>
+          <line class="mute-x1" x1="17" y1="9" x2="22" y2="15"/>
+          <line class="mute-x2" x1="22" y1="9" x2="17" y2="15"/>
+        </svg>
+      </button>
+      <!-- Upload your showreel file to the assets folder and name it "showreel.mp4"
+           (or edit the src above to match your own filename).
+           poster="assets/showreel-poster.jpg" is an optional cover image shown
+           before the video starts — remove that attribute if you don't have one.
+           This video starts playing automatically once scrolled into view (muted),
+           and pauses when scrolled out of view. Sound is toggled with the button. -->
     </div>
   </div>
 </section>
@@ -668,10 +682,10 @@
     <div class="section-eyebrow" style="text-align:center;">Let's Make Something</div>
     <div class="contact-title">Get In Touch</div>
     <p class="contact-sub">Available for commercial, branded, and narrative work.</p>
-    <a class="liquid-btn" href="mailto:yashghayal77777@gmail.com">Email Me →</a>
+    <a class="liquid-btn" href="mailto:yash.ghayal@aol.com">Email Me →</a>
     <div class="social-row">
       <a href="tel:+919370309344">+91 93703 09344</a>
-      <a href="mailto:yashghayal77777@gmail.com">yashghayal77777@gmail.com</a>
+      <a href="mailto:yash.ghayal@aol.com">yash.ghayal@aol.com</a>
       <a href="#">Instagram</a>
       <a href="#">Vimeo</a>
       <!-- REPLACE the Instagram / Vimeo hrefs with your real profile links -->
@@ -779,6 +793,29 @@
     video.muted = !video.muted;
     btn.classList.toggle('is-unmuted', !video.muted);
     if (!video.muted && video.paused) video.play().catch(() => {});
+  }
+
+  // Showreel: plays automatically (muted) once scrolled into view, pauses when
+  // scrolled away. The sound button only toggles audio — playback is separate.
+  const showreelVideo = document.getElementById('showreel-video');
+  const showreelBtn = document.getElementById('showreel-sound-btn');
+  function toggleReelSound(){
+    if (!showreelVideo) return;
+    showreelVideo.muted = !showreelVideo.muted;
+    showreelBtn.classList.toggle('is-unmuted', !showreelVideo.muted);
+    if (!showreelVideo.muted && showreelVideo.paused) showreelVideo.play().catch(() => {});
+  }
+  if (showreelVideo) {
+    const reelObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          showreelVideo.play().catch(() => {});
+        } else {
+          showreelVideo.pause();
+        }
+      });
+    }, { threshold: 0.4 });
+    reelObserver.observe(showreelVideo);
   }
 
   // Safety net: if a browser blocks autoplay, retry on first user interaction,
